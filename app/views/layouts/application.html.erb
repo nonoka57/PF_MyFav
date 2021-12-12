@@ -1,15 +1,51 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>MyFav</title>
+    <title>My Fav🌟</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
+
+    <meta name="viewport" content="width=devise-width, initial-scale=1, maximum-scale=1" >
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
+    <header>
+      <nav class="navbar navbar-expand-lg navbar-lignt">
+        <div class="container">
+          <%= link_to root_path, class:'navbar-brand' do %>
+          <span>My Fav🌟</span>
+          <% end %>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+              <!--ログイン状態-->
+              <% if user_signed_in? %>
+                <!--ユーザー検索バー-->
+                <li class="mt-3">
+                  <%= form_tag(search_path, method: :get) do %>
+                    <%= text_field_tag 'content' %>
+                    <%= submit_tag '検索' %>
+                  <% end %>
+                </li>
+                <li><%= link_to 'マイページ', users_path(current_user.id), class:'nav-link btn btn-outline-dark m-1' %></li>
+                <li><%= link_to 'マップ',user_map_index_path(current_user.id), class:'nav-link btn btn-outline-dark m-1' %></li>
+                <li><%= link_to 'ログアウト', destroy_user_session_path, class:'nav-link btn btn-outline-dark m-1' %></li>
+              <!--ログイン前-->
+              <% else %>
+                <li><%= link_to 'ログイン', new_user_session_path, class:'nav-link btn btn-outline-dark m-1' %></li>
+                <li><%= link_to '新規登録', new_user_registration_path, class:'nav-link btn btn-outline-dark m-1' %></li>
+              <% end %>
+            </ul>
+          </div>
+        </div>
+      </nav>
+
+    </header>
     <%= yield %>
   </body>
 </html>

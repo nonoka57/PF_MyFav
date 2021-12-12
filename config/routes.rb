@@ -6,14 +6,13 @@ Rails.application.routes.draw do
     resources :relationships, only: [:create, :destroy]
     get 'followings' => 'relationships#followings', as: 'followings'
     get 'followings' => 'relationships#followers', as: 'followers'
+    resources :map, only: [:index]
   end
 
 
   resources :spots, only: [:index, :create, :show, :edit, :update, :destroy]
 
   resources :categories, only: [:index, :create, :edit, :update]
-
-  resources :maps, only: [:show]
 
   get '/search', to: 'searchs#search'
 
