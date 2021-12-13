@@ -1,0 +1,21 @@
+<main>
+  <div class="container">
+    <div class="row">
+      <%= render 'users/user', user: @user, categories: @categories, category: @category %>
+      <div class="col-md-9">
+        <h2>Category</h2>
+        <table class="table">
+          <tbody>
+            <tr>
+              <% @categories.each do |category| %>
+                <td><%= category.name %></td>
+                <td><%= link_to 'edit', edit_category_path(category), class:'btn btn-outline-dark' %></td>
+                <td><%= link_to 'destroy', category_path(category), method: :delete, data: {confirm: '本当に消しますか？'}, class:'btn btn-outline-dark' %></td>
+              <% end %>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</main>

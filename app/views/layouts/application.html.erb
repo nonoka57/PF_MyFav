@@ -32,9 +32,9 @@
                     <%= submit_tag '検索' %>
                   <% end %>
                 </li>
-                <li><%= link_to 'マイページ', users_path(current_user.id), class:'nav-link btn btn-outline-dark m-1' %></li>
+                <li><%= link_to 'マイページ', user_path(current_user.id), class:'nav-link btn btn-outline-dark m-1' %></li>
                 <li><%= link_to 'マップ',user_map_index_path(current_user.id), class:'nav-link btn btn-outline-dark m-1' %></li>
-                <li><%= link_to 'ログアウト', destroy_user_session_path, class:'nav-link btn btn-outline-dark m-1' %></li>
+                <li><%= link_to 'ログアウト', destroy_user_session_path, method: :delete, class:'nav-link btn btn-outline-dark m-1' %></li>
               <!--ログイン前-->
               <% else %>
                 <li><%= link_to 'ログイン', new_user_session_path, class:'nav-link btn btn-outline-dark m-1' %></li>
@@ -44,8 +44,18 @@
           </div>
         </div>
       </nav>
-
     </header>
     <%= yield %>
+
+    <footer class="bg-dark">
+      <div class="container py-3">
+        <div class="row">
+          <div class="mx-auto">
+            <p class="m-0">フッター</p>
+          </div>
+        </div>
+      </div>
+    </footer>
+
   </body>
 </html>

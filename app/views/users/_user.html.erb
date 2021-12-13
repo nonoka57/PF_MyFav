@@ -1,0 +1,21 @@
+<div class="col-md-3">
+  <h2>My</h2>
+  <%= attachment_image_tag user, :profile_image, :fill, 100, 100, format: 'jpeg', fallback:'noimage.jpg', class:'rounded mx-auto d-block' %>
+  <h3><%= user.name %></h3>
+  <p><%= user.biography %></p>
+  <%= link_to user.followings.count, user_followings_path(user.id), class:'mt-2' %>フォロー中
+  <%= link_to user.followers.count, user_followers_path(user.id), class:'mt-2' %>フォロワー
+  <%= link_to 'edit', edit_user_path(user.id), class:'btn btn-outline-dark m-2' %>
+
+  <h2>Category</h2>
+  <% categories.each do |category| %>
+    <%= link_to category.name, spots_path(category_id: category.id), class:'btn btn-outline-dark' %>
+  <% end %>
+
+  <%= form_with model: category, local: true do |f| %>
+    <%= f.text_field :name, placeholder: 'カテゴリー名' %></br>
+    <%= f.submit '追加', class:'btn btn-outline-dark' %>
+  <% end %>
+  <%= link_to 'カテゴリー編集', categories_path, class:'btn btn-outline-dark' %>
+
+</div>

@@ -12,7 +12,7 @@ Rails.application.routes.draw do
 
   resources :spots, only: [:index, :create, :show, :edit, :update, :destroy]
 
-  resources :categories, only: [:index, :create, :edit, :update]
+  resources :categories, only: [:index, :create, :edit, :update, :destroy]
 
   get '/search', to: 'searchs#search'
 
