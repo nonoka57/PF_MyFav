@@ -3,7 +3,14 @@
     <div class="row">
       <%= render 'users/user', user: @user, categories: @categories, category: @category %>
       <div class="col-md-9">
-
+        <h2>Category edit</h2>
+        <div class="offset-md-1">
+          <%= form_with model: @edit, local:true do |f| %>
+            <%= f.text_field :name %>
+            <%= f.submit '変更' %>
+          <% end %>
+          </div>
+        </div>
       </div>
     </div>
   </div>
