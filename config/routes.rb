@@ -9,14 +9,11 @@ Rails.application.routes.draw do
     resources :map, only: [:index]
   end
 
-
   resources :spots, only: [:index, :create, :show, :edit, :update, :destroy]
 
   resources :categories, only: [:index, :create, :edit, :update, :destroy]
 
   get '/search', to: 'searchs#search'
-
-
 
 
 end

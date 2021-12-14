@@ -4,17 +4,17 @@
       <%= render 'users/user', user: @user, categories: @categories, category: @category %>
       <div class="col-md-9">
         <h2>Category</h2>
-        <table class="table">
-          <tbody>
+        <div class="offset-md-1">
+          <table class="table-borderless">
+            <% @categories.each do |category| %>
             <tr>
-              <% @categories.each do |category| %>
-                <td><%= category.name %></td>
-                <td><%= link_to 'edit', edit_category_path(category), class:'btn btn-outline-dark' %></td>
-                <td><%= link_to 'destroy', category_path(category), method: :delete, data: {confirm: '本当に消しますか？'}, class:'btn btn-outline-dark' %></td>
-              <% end %>
+            <td><%= category.name %></td>
+            <td><%= link_to 'edit', edit_category_path(category), class:'btn btn-outline-dark' %></td>
+            <td> <%= link_to 'destroy', category_path(category), method: :delete, data: {confirm: '本当に消しますか？'}, class:'btn btn-outline-dark' %></td>
             </tr>
-          </tbody>
-        </table>
+            <% end %>
+          </table>
+        </div>
       </div>
     </div>
   </div>
