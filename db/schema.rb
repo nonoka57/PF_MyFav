@@ -10,13 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_13_084035) do
+ActiveRecord::Schema.define(version: 2021_12_14_194142) do
 
   create_table "categories", force: :cascade do |t|
     t.string "name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "user_id"
+  end
+
+  create_table "posts", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "category_id"
+    t.text "title", null: false
+    t.text "caption", null: false
+    t.string "image_id"
+    t.float "rate"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "relationships", force: :cascade do |t|
@@ -27,17 +38,13 @@ ActiveRecord::Schema.define(version: 2021_12_13_084035) do
   end
 
   create_table "spots", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "category_id"
-    t.text "title", null: false
-    t.text "caption", null: false
-    t.string "image_id"
     t.string "address"
     t.float "latitude"
     t.float "longitude"
-    t.float "rate"
+    t.integer "post_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["post_id"], name: "index_spots_on_post_id"
   end
 
   create_table "users", force: :cascade do |t|

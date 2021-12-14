@@ -4,22 +4,25 @@ class SpotsController < ApplicationController
     @user = User.find_by(params[:id])
     @category = Category.new
     @categories = @user.categories
-    @spot = Spot.new
+    @post = Post.new
+    @post.build_spot
   end
 
   def create
-    @spot = current_user.spots.new(spot_params)
-    if @spot.save
-      redirect_to spot_path(@spot.id)
+    @post = current_user.posts.new(spot_params)
+    if @post.save
+      redirect_to spot_path(@post.id)
     else
-      @user = User.find_by(params[:id])
-      @category = Category.new
-      @categories = @user.categories
-      render :index
+      redirect_to spots_path
     end
   end
 
   def show
+    @post = Post.find(params[:id])
+    @lat = @post.spot.latitude
+    @lng = @post.spot.longitude
+    gon.lat = @lat
+    gon.lng = @lng
   end
 
   def edit
@@ -35,7 +38,7 @@ class SpotsController < ApplicationController
   private
 
   def spot_params
-    params.require(:spot).permit(:title, :caption, :image, :address, :rate)
+    params.require(:post).permit(:title, :caption, :image, :rate, spot_attributes: [:address])
   end
 
 end

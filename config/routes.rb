@@ -8,7 +8,8 @@ Rails.application.routes.draw do
     get 'followings' => 'relationships#followers', as: 'followers'
     resources :map, only: [:index]
   end
-
+  
+  resources :posts, only: [:create]
   resources :spots, only: [:index, :create, :show, :edit, :update, :destroy]
 
   resources :categories, only: [:index, :create, :edit, :update, :destroy]

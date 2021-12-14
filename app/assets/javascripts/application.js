@@ -19,4 +19,6 @@
 //= require activestorage
 //= require turbolinks
 //= require jquery.raty.js
+//= require underscore
+//= require gmaps/google
 //= require_tree .
