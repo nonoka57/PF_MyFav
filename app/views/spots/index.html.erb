@@ -1,59 +1,74 @@
 <main>
   <div class="container">
     <div class="row">
+
       <%= render 'users/user', user: @user, categories: @categories, category: @category %>
+
       <div class="col-sm-9">
         <h2>New Fav🌟</h2>
         <div class="offset-sm-1 mx-auto">
-          <form>
-            <%= form_with model: @post, local:true do |f| %>
-              <div class="form_group row">
-                <%= f.label :title, class:'col-sm-2 col-form-label' %>
-                <div class="col-sm-9">
-                  <%= f.text_field :title, class:'form-control' %>
+            <%= form_with model: @post, local: true, multipart: true do |f| %>
+                <div class="form_group row">
+                  <%= f.label :title, class:'col-sm-2 col-form-label' %>
+                  <div class="col-sm-9">
+                    <%= f.text_field :title, class:'form-control' %>
+                  </div>
                 </div>
-              </div>
-              <div class="form_group row">
-                <%= f.label :caption, class:'col-sm-2 col-form-label' %>
-                <div class="col-sm-9">
-                  <%= f.text_area :caption, class:'form-control' %>
-                </div>
-              </div>
-              <div class="form_group row offset-sm-2">
-                <div class="col-sm-9 ">
-                  <%= f.attachment_field :image %>
-                </div>
-              </div>
-              <div class="form_group row">
-                <%= f.label :address, class:'col-sm-2 col-form-label' %>
-                <div class="col-sm-9">
-                  <%= f.text_field :address, class:'form-control' %>
-                </div>
-              </div>
-              <%= render 'spots/map' %>
-              <div class="row">
-              <%= f.label :rate, class:'col-sm-2 col-form-label' %>
-               <div class="col-sm-9" id="star">
-                <%= f.hidden_field :rate %>
-               </div>
-              </div>
-              <div class="form_group row">
-                <%= f.label :category, class:'col-sm-2 col-form-label' %>
-                <div class="col-sm-9">
-                  <%= f.collection_select :category_id, current_user.categories, :id, :name, {prompt: "--選択してください--"}, { class:'form-control', required: true} %>
-                </div>
-              </div>
 
+                <div class="form_group row">
+                  <%= f.label :caption, class:'col-sm-2 col-form-label' %>
+                  <div class="col-sm-9">
+                    <%= f.text_area :caption, class:'form-control' %>
+                  </div>
+                </div>
 
-              <div class="form_group">
-                <%= f.submit '登録', class:'btn btn-outline-dark' %>
-              </div>
+                <div class="form_group row">
+                  <div class="col-sm-9 offset-sm-2">
+                    <%= f.attachment_field :image %>
+                  </div>
+                </div>
+
+                <div class="form_group row">
+                <%= f.label :rate, class:'col-sm-2 col-form-label' %>
+                 <div class="col-sm-9" id="star">
+                  <%= f.hidden_field :rate %>
+                 </div>
+                </div>
+
+                <div class="form_group row">
+                  <%= f.label :category, class:'col-sm-2 col-form-label' %>
+                  <div class="col-sm-9">
+                    <%= f.collection_select :category_id, current_user.categories, :id, :name, {prompt: "--選択してください--"}, { class:'form-control', required: true} %>
+                  </div>
+                </div>
+                <div class="form_group row">
+                  <%= f.fields_for :spot do |s| %>
+                   <%= s.label :address, class:'spot_title col-sm-2 col-form-label' %>
+                   <div class="col-sm-9">
+                     <%= s.text_field :address, placeholder: 'スポット入力', id: 'address', class:'spot_text' %>
+                  　 <input onclick="codeAddress()", type="button", value="検索">
+                     <div id="map"></div>
+                   </div>
+                  <% end %>
+                </div>
+
+                <div class="form_group">
+                  <%= f.submit '登録', class:'btn btn-outline-dark' %>
+                </div>
+
             <% end %>
-          </form>
         </div>
       </div>
     </div>
   </div>
+
+  <style>
+  #map {
+    height: 200px;
+    width: 400px;
+  }
+  </style>
+
   <script>
   $('#star').empty();
   $('#star').raty({

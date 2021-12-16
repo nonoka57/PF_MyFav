@@ -9,8 +9,8 @@ Rails.application.routes.draw do
     resources :map, only: [:index]
   end
   
-  resources :posts, only: [:create]
-  resources :spots, only: [:index, :create, :show, :edit, :update, :destroy]
+  resources :posts, only: [:create, :edit, :update, :destroy]
+  resources :spots, only: [:index, :show ]
 
   resources :categories, only: [:index, :create, :edit, :update, :destroy]
 
